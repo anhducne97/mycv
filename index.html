@@ -86,13 +86,16 @@ a{color:inherit}
 .btn:hover{transform:translateY(-2px)}
 .btn:not(.primary):hover{background:rgba(255,255,255,.08)}
 
-/* stamp + years */
-.portrait{justify-self:end; display:flex; flex-direction:column; align-items:center; gap:18px; padding-right:12px}
-.stamp{width:200px; height:200px; transform:rotate(-12deg); color:#FF6B5E}
+/* photo + stamp + years */
+.portrait{justify-self:end; position:relative; width:300px; margin-right:24px}
+.photo{margin:0; aspect-ratio:4/5; border-radius:14px; overflow:hidden; border:6px solid #fff; background:#2B4B85; box-shadow:0 30px 60px -20px rgba(0,0,0,.6); transform:rotate(-2.5deg)}
+.photo img{display:block; width:100%; height:100%; object-fit:cover}
+.stamp{position:absolute; right:-46px; top:-40px; width:140px; height:140px; transform:rotate(14deg); color:#FF6B5E; filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
 .stamp svg{width:100%; height:100%}
 .stamp text{font-family:var(--font-mono); font-weight:600; font-size:10.4px; letter-spacing:2.2px; fill:currentColor}
-.years{display:flex; align-items:center; gap:12px; background:#fff; color:#14213D; padding:12px 18px; border-radius:10px; box-shadow:0 20px 40px -18px rgba(0,0,0,.6); transform:rotate(2deg)}
-.years b{font-family:var(--font-display); font-size:40px; line-height:1}
+.stamp circle:first-of-type{fill:rgba(16,27,51,.55)}
+.years{position:absolute; left:-26px; bottom:30px; display:flex; align-items:center; gap:12px; background:#fff; color:#14213D; padding:10px 16px; border-radius:10px; box-shadow:0 20px 40px -18px rgba(0,0,0,.6); transform:rotate(2deg)}
+.years b{font-family:var(--font-display); font-size:36px; line-height:1}
 .years span{font-size:13px; line-height:1.3; color:#5A6477; max-width:11ch}
 
 /* ---------- result cards ---------- */
@@ -222,8 +225,8 @@ footer{padding:28px 0 90px; display:flex; justify-content:space-between; gap:12p
 @media (max-width:720px){
   .cover::before{left:14px}
   .hero{grid-template-columns:1fr; padding:24px 0 110px; gap:48px}
-  .portrait{flex-direction:row; justify-self:start; padding-right:0}
-  .stamp{width:110px; height:110px}
+  .portrait{justify-self:center; width:240px; margin:0 0 0 12px}
+  .stamp{width:110px; height:110px; right:-34px; top:-30px}
   .roles{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr; padding:32px 22px}
   section{padding:56px 0}
@@ -296,6 +299,7 @@ footer{padding:28px 0 90px; display:flex; justify-content:space-between; gap:12p
       </div>
 
       <div class="portrait">
+        <figure class="photo"><img src="img/nick-pham.jpg" alt="Phạm Anh Đức (Nick Pham) in a classroom" width="640" height="800"></figure>
         <div class="stamp" aria-label="Certified examiner: Cambridge, VSTEP">
           <svg viewBox="0 0 140 140" aria-hidden="true">
             <defs><path id="ring" d="M70 70 m-52 0 a52 52 0 1 1 104 0 a52 52 0 1 1 -104 0"/></defs>

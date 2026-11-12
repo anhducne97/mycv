@@ -3,6 +3,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).parent
 FS = (ROOT / "node_modules/@fontsource").as_uri()
+PHOTO = pathlib.Path("/home/claude/nick-pham-profile/img/nick-pham.jpg").as_uri()
 
 T = {
  "en": dict(
@@ -83,12 +84,13 @@ def html(lang):
 *{{box-sizing:border-box}}
 html,body{{margin:0; -webkit-print-color-adjust:exact; print-color-adjust:exact}}
 body{{font-family:"Be Vietnam Pro",sans-serif; font-size:9.4pt; line-height:1.45; color:#14213D; width:210mm; height:297mm; display:grid; grid-template-columns:68mm 1fr}}
-.side{{background:#14213D; color:#F3F5F9; padding:15mm 8mm 12mm 10mm; position:relative}}
+.side{{background:#14213D; color:#F3F5F9; padding:12mm 8mm 10mm 10mm; position:relative}}
+.ph{{display:block; width:34mm; height:42.5mm; object-fit:cover; border:1.6mm solid #fff; border-radius:2.5mm; margin:0 0 6mm}}
 .side::before{{content:""; position:absolute; left:5mm; top:0; bottom:0; width:.6pt; background:rgba(210,59,59,.7)}}
 .mono{{font-family:"IBM Plex Mono",monospace; font-size:7pt; letter-spacing:.12em; text-transform:uppercase; font-weight:500}}
 .mono.h{{color:#FFD54A; display:block; margin:0 0 2.5mm; padding-bottom:1.5mm; border-bottom:.6pt solid rgba(255,255,255,.2)}}
 .mono.m{{color:#D23B3B; display:block; margin:0 0 3mm; padding-bottom:1.5mm; border-bottom:.8pt solid #14213D}}
-.mono-box{{margin-bottom:7mm}}
+.mono-box{{margin-bottom:5.5mm}}
 .mono-box p{{margin:0 0 2mm}}
 .mono-box small{{display:block; opacity:.65; font-size:7pt}}
 .score{{display:grid; grid-template-columns:auto 1fr; gap:0 3mm; align-items:center; margin-bottom:2.6mm}}
@@ -117,6 +119,7 @@ section{{margin-bottom:5.5mm}}
 .how li::marker{{color:#D23B3B; font-weight:600}}
 </style></head><body>
 <aside class="side">
+  <img class="ph" src="{PHOTO}" alt="">
   <div class="mono-box"><span class="mono h">{t['contact']}</span>
     <p><small>{t['phone']}</small>0962 285 135</p>
     <p><small>Email</small>anhducpham.ftu2@gmail.com</p>
