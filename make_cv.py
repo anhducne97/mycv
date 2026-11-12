@@ -76,9 +76,9 @@ def html(lang):
     how = "".join(f"<li>{x}</li>" for x in t["h"])
     return f"""<!DOCTYPE html><html lang="{lang}"><head><meta charset="utf-8"><title>Phạm Anh Đức (Nick Pham) CV</title>
 <link rel="stylesheet" href="{FS}/be-vietnam-pro/400.css"><link rel="stylesheet" href="{FS}/be-vietnam-pro/500.css">
-<link rel="stylesheet" href="{FS}/be-vietnam-pro/600.css"><link rel="stylesheet" href="{FS}/newsreader/600.css">
-<link rel="stylesheet" href="{FS}/newsreader/700.css"><link rel="stylesheet" href="{FS}/newsreader/400-italic.css">
-<link rel="stylesheet" href="{FS}/ibm-plex-mono/500.css">
+<link rel="stylesheet" href="{FS}/be-vietnam-pro/600.css"><link rel="stylesheet" href="{FS}/be-vietnam-pro/700.css">
+<link rel="stylesheet" href="{FS}/be-vietnam-pro/800.css">
+
 <style>
 @page{{size:A4; margin:0}}
 *{{box-sizing:border-box}}
@@ -87,14 +87,14 @@ body{{font-family:"Be Vietnam Pro",sans-serif; font-size:9.4pt; line-height:1.45
 .side{{background:#14213D; color:#F3F5F9; padding:12mm 8mm 10mm 10mm; position:relative}}
 .ph{{display:block; width:34mm; height:42.5mm; object-fit:cover; border:1.6mm solid #fff; border-radius:2.5mm; margin:0 0 6mm}}
 .side::before{{content:""; position:absolute; left:5mm; top:0; bottom:0; width:.6pt; background:rgba(210,59,59,.7)}}
-.mono{{font-family:"IBM Plex Mono",monospace; font-size:7pt; letter-spacing:.12em; text-transform:uppercase; font-weight:500}}
+.mono{{font-family:"Be Vietnam Pro",sans-serif; font-size:7pt; letter-spacing:.1em; text-transform:uppercase; font-weight:700}}
 .mono.h{{color:#FFD54A; display:block; margin:0 0 2.5mm; padding-bottom:1.5mm; border-bottom:.6pt solid rgba(255,255,255,.2)}}
 .mono.m{{color:#D23B3B; display:block; margin:0 0 3mm; padding-bottom:1.5mm; border-bottom:.8pt solid #14213D}}
 .mono-box{{margin-bottom:5.5mm}}
 .mono-box p{{margin:0 0 2mm}}
 .mono-box small{{display:block; opacity:.65; font-size:7pt}}
 .score{{display:grid; grid-template-columns:auto 1fr; gap:0 3mm; align-items:center; margin-bottom:2.6mm}}
-.score b{{font-family:"Newsreader",serif; font-weight:700; font-size:20pt; line-height:1; color:#FFD54A; min-width:16mm}}
+.score b{{font-family:"Be Vietnam Pro",sans-serif; font-weight:800; letter-spacing:-.03em; font-size:18pt; line-height:1; color:#FFD54A; min-width:16mm}}
 .score span{{font-size:8pt; line-height:1.3}}
 .score span i{{display:block; font-style:normal; opacity:.65; font-size:7pt}}
 .side ul{{list-style:none; margin:0; padding:0}}
@@ -102,14 +102,14 @@ body{{font-family:"Be Vietnam Pro",sans-serif; font-size:9.4pt; line-height:1.45
 .side li b{{display:block; font-weight:600; font-size:8.6pt; line-height:1.3}}
 .side li span{{opacity:.68; font-size:7.6pt}}
 .main{{padding:15mm 13mm 12mm 11mm}}
-h1{{font-family:"Newsreader",serif; font-weight:700; font-size:30pt; line-height:1; margin:0}}
-.aka{{font-family:"Newsreader",serif; font-style:italic; font-size:13pt; color:#5A6477; margin-top:1mm}}
+h1{{font-family:"Be Vietnam Pro",sans-serif; font-weight:800; font-size:28pt; line-height:1; margin:0; letter-spacing:-.04em}}
+.aka{{font-family:"Be Vietnam Pro",sans-serif; font-weight:500; font-size:12pt; color:#5A6477; margin-top:1mm}}
 .role-line{{display:inline-block; margin:3.5mm 0 6mm; font-weight:600; font-size:8.6pt; background:linear-gradient(transparent 55%, #FFD54A 55%); padding:0 1mm}}
 section{{margin-bottom:5.5mm}}
 .summary{{margin:0; color:#2c3754}}
 .role{{display:grid; grid-template-columns:19mm 1fr; gap:3mm; padding:1.8mm 0; border-bottom:.5pt solid #DCE1EA}}
 .role:last-child{{border-bottom:0}}
-.when{{font-family:"IBM Plex Mono",monospace; font-size:7pt; color:#2F6FDE; font-weight:500; text-transform:uppercase; letter-spacing:.06em; padding-top:.6mm}}
+.when{{font-family:"Be Vietnam Pro",sans-serif; font-size:7pt; color:#2F6FDE; font-weight:500; text-transform:uppercase; letter-spacing:.06em; padding-top:.6mm}}
 .role b, .wk b{{font-weight:600; font-size:9.4pt}}
 .role p, .wk p{{margin:.3mm 0 0; color:#5A6477; font-size:8.6pt}}
 .work{{display:grid; grid-template-columns:1fr 1fr; gap:3mm 5mm}}
