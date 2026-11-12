@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phạm Anh Đức (Nick Pham)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+/* Layout idea: an examiner's desk. Navy cover sheet with an official stamp, highlighter on the key phrase, colour-coded result cards and section tabs. */
+:root{
+  --paper:#F3F5F9;
+  --surface:#FFFFFF;
+  --ink:#14213D;
+  --muted:#5A6477;
+  --rule:#DCE1EA;
+  --tint:#E8EEF8;
+  --cover:#14213D;
+  --cover-ink:#F3F5F9;
+  --pen:#D23B3B;
+  --hl:#FFD54A;
+  --c-teach:#2F6FDE;
+  --c-assess:#D23B3B;
+  --c-course:#17977A;
+  --c-tech:#D99A00;
+  --shadow:0 1px 2px rgba(20,33,61,.06), 0 10px 30px -12px rgba(20,33,61,.22);
+  --font-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --font-body:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C121E; --surface:#151D2C; --ink:#E6EBF4; --muted:#9AA6BC; --rule:#27324A; --tint:#111A2B;
+    --cover:#101B33; --cover-ink:#EEF2F9; --pen:#FF6B5E; --hl:#F2C94C;
+    --c-teach:#6C9BF0; --c-assess:#FF6B5E; --c-course:#3CC59F; --c-tech:#F2B630;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 30px -12px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C121E; --surface:#151D2C; --ink:#E6EBF4; --muted:#9AA6BC; --rule:#27324A; --tint:#111A2B;
+  --cover:#101B33; --cover-ink:#EEF2F9; --pen:#FF6B5E; --hl:#F2C94C;
+  --c-teach:#6C9BF0; --c-assess:#FF6B5E; --c-course:#3CC59F; --c-tech:#F2B630;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 30px -12px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper); color:var(--ink); font-family:var(--font-body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+body[data-lang="en"] [data-l="vi"], body[data-lang="vi"] [data-l="en"]{display:none !important}
+.wrap{max-width:1040px; margin:0 auto; padding:0 20px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--hl); outline-offset:3px; border-radius:4px}
+.mono{font-family:var(--font-mono); font-size:12px; letter-spacing:.09em; text-transform:uppercase}
+
+/* ---------- cover ---------- */
+.cover{
+  background:
+    repeating-linear-gradient(180deg, transparent 0 31px, rgba(255,255,255,.05) 31px 32px),
+    radial-gradient(1200px 420px at 85% -10%, rgba(47,111,222,.35), transparent 60%),
+    var(--cover);
+  color:var(--cover-ink); position:relative; overflow:hidden;
+}
+.cover::before{content:""; position:absolute; left:64px; top:0; bottom:0; width:1px; background:rgba(210,59,59,.55)}
+.topbar{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:20px 0; position:relative}
+.topbar .mono{opacity:.75}
+.lang{display:inline-flex; border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:3px; background:rgba(255,255,255,.06)}
+.lang button{font:500 13px/1 var(--font-body); color:var(--cover-ink); opacity:.75; background:transparent; border:0; padding:8px 14px; border-radius:999px; cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--hl); color:#14213D; opacity:1}
+
+.hero{display:grid; grid-template-columns:1.35fr .9fr; gap:40px; align-items:center; padding:40px 0 120px; position:relative}
+.eyebrow{display:inline-flex; flex-wrap:wrap; gap:8px}
+.eyebrow span{font-family:var(--font-mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; padding:6px 10px; border:1px solid rgba(255,255,255,.22); border-radius:4px; background:rgba(255,255,255,.05)}
+.hero h1{font-family:var(--font-display); font-weight:700; font-size:clamp(44px,7.4vw,80px); line-height:.98; margin:22px 0 6px; letter-spacing:-.015em}
+.aka{font-family:var(--font-display); font-style:italic; font-size:24px; opacity:.7}
+.thesis{font-family:var(--font-display); font-style:italic; font-size:clamp(26px,3.6vw,36px); line-height:1.28; margin:26px 0 0; max-width:20ch; text-wrap:balance}
+.hl{font-style:normal; font-weight:600; color:#14213D; background:linear-gradient(100deg, transparent 0 2%, var(--hl) 2% 97%, transparent 97%); padding:0 .18em; border-radius:2px; box-decoration-break:clone; -webkit-box-decoration-break:clone}
+.summary{max-width:58ch; opacity:.82; margin:22px 0 0; font-size:16.5px}
+.cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:30px}
+.btn{display:inline-flex; align-items:center; gap:10px; text-decoration:none; font:600 15px/1 var(--font-body); padding:14px 20px; border-radius:8px; border:1px solid rgba(255,255,255,.35); color:var(--cover-ink); background:transparent; cursor:pointer; transition:transform .15s ease, background .15s ease}
+.btn svg{width:18px; height:18px}
+.btn.primary{background:var(--hl); color:#14213D; border-color:var(--hl)}
+.btn:hover{transform:translateY(-2px)}
+.btn:not(.primary):hover{background:rgba(255,255,255,.08)}
+
+/* portrait card + stamp */
+.portrait{justify-self:center; position:relative; width:min(300px,100%)}
+.photo{
+  aspect-ratio:4/5; border-radius:14px; background:linear-gradient(160deg,#2B4B85,#1A2C52);
+  border:6px solid #fff; box-shadow:0 30px 60px -20px rgba(0,0,0,.55); transform:rotate(-2.5deg);
+  display:grid; place-items:center; position:relative; overflow:hidden;
+}
+.photo span{font-family:var(--font-display); font-weight:700; font-size:96px; color:rgba(255,255,255,.92); letter-spacing:.02em}
+.photo::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(180deg, transparent 0 23px, rgba(255,255,255,.07) 23px 24px)}
+.tag{position:absolute; left:-18px; bottom:28px; background:#fff; color:#14213D; padding:10px 14px; border-radius:8px; box-shadow:var(--shadow); transform:rotate(2deg); display:flex; align-items:center; gap:10px}
+.tag b{font-family:var(--font-display); font-size:30px; line-height:1}
+.tag small{font-size:12px; line-height:1.25; color:#5A6477; max-width:12ch}
+.stamp{position:absolute; right:-34px; top:-30px; width:132px; height:132px; transform:rotate(14deg); color:var(--pen)}
+.stamp svg{width:100%; height:100%}
+.stamp text{font-family:var(--font-mono); font-weight:600; font-size:10.4px; letter-spacing:2.2px; fill:currentColor}
+
+/* ---------- result cards ---------- */
+.results{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:-72px; position:relative; z-index:2}
+.rcard{background:var(--surface); border-radius:12px; box-shadow:var(--shadow); padding:20px 20px 18px; position:relative; overflow:hidden; display:flex; flex-direction:column; gap:4px}
+.rcard::before{content:""; position:absolute; left:0; right:0; top:0; height:5px; background:var(--c)}
+.rcard .mono{color:var(--c); font-weight:600}
+.score{font-family:var(--font-display); font-size:46px; font-weight:700; line-height:1.02; font-variant-numeric:tabular-nums lining-nums}
+.score small{font-size:20px; color:var(--muted); font-weight:400}
+.rcard .note{font-size:13px; color:var(--muted); line-height:1.4}
+.rcard.ma .score{font-size:27px; line-height:1.12; padding:6px 0 4px}
+
+/* ---------- sections ---------- */
+section{padding:72px 0}
+section.tinted{background:var(--tint)}
+.sec-head{display:flex; align-items:flex-end; gap:16px; margin-bottom:30px; flex-wrap:wrap}
+.sec-num{font-family:var(--font-mono); font-size:13px; font-weight:600; color:#fff; background:var(--pen); padding:6px 9px; border-radius:4px; line-height:1}
+.sec-head h2{font-family:var(--font-display); font-weight:700; font-size:clamp(28px,3.6vw,38px); margin:0; line-height:1.1; text-wrap:balance}
+.sec-head p{flex-basis:100%; margin:4px 0 0; color:var(--muted); max-width:60ch}
+
+/* roles timeline */
+.roles{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+.role{background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:20px 22px; display:grid; grid-template-columns:48px 1fr; gap:16px; align-items:start}
+.role.feature{grid-column:1 / -1; border-color:transparent; background:linear-gradient(120deg, color-mix(in srgb, var(--c-teach) 12%, var(--surface)), var(--surface) 70%); box-shadow:var(--shadow)}
+.ico{width:48px; height:48px; border-radius:12px; display:grid; place-items:center; background:color-mix(in srgb, var(--c) 14%, transparent); color:var(--c)}
+.ico svg{width:24px; height:24px}
+.role .when{font-family:var(--font-mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--c); font-weight:600}
+.role h3{margin:2px 0 0; font-size:18px; font-weight:600; line-height:1.35}
+.role p{margin:4px 0 0; color:var(--muted); font-size:15px}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.chip{font:500 12px/1 var(--font-mono); padding:6px 9px; border-radius:999px; background:var(--tint); color:var(--ink); border:1px solid var(--rule)}
+
+/* CEFR ladder */
+.ladder-card{background:var(--surface); border-radius:14px; box-shadow:var(--shadow); padding:26px 24px 20px}
+.ladder-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+.ladder{min-width:680px; display:grid; grid-template-columns:190px repeat(7,1fr); row-gap:16px; column-gap:5px; align-items:center}
+.lvl{font-family:var(--font-mono); font-size:12.5px; font-weight:600; text-align:center; padding:8px 0; border-radius:6px; color:var(--ink)}
+.lvl:nth-child(2){background:color-mix(in srgb, var(--c-course) 10%, transparent)}
+.lvl:nth-child(3){background:color-mix(in srgb, var(--c-course) 16%, transparent)}
+.lvl:nth-child(4){background:color-mix(in srgb, var(--c-teach) 12%, transparent)}
+.lvl:nth-child(5){background:color-mix(in srgb, var(--c-teach) 18%, transparent)}
+.lvl:nth-child(6){background:color-mix(in srgb, var(--c-tech) 16%, transparent)}
+.lvl:nth-child(7){background:color-mix(in srgb, var(--c-assess) 14%, transparent)}
+.lvl:nth-child(8){background:color-mix(in srgb, var(--c-assess) 20%, transparent)}
+.rowlabel{grid-column:1; font-size:14.5px; font-weight:600; line-height:1.35; padding-right:10px}
+.rowlabel small{display:block; font-weight:400; color:var(--muted); font-size:12.5px}
+.bar{display:grid; gap:4px; height:44px}
+.bar span{display:grid; place-items:center; font:600 12px/1.15 var(--font-mono); color:#fff; text-align:center; padding:0 4px; border-radius:6px}
+.bar.a span{background:var(--c-teach)}
+.bar.a span:nth-child(1){opacity:.72}.bar.a span:nth-child(2){opacity:.82}.bar.a span:nth-child(3){opacity:.92}
+.bar.b span{background:var(--c-assess)}
+.bar.b span:nth-child(1){opacity:.78}.bar.b span:nth-child(2){opacity:.89}
+.bar.c span{background:color-mix(in srgb, var(--c-assess) 8%, transparent); color:var(--c-assess); border:1.5px dashed var(--c-assess)}
+.legend{display:flex; flex-wrap:wrap; gap:18px; margin-top:18px; font-size:13px; color:var(--muted)}
+.legend i{display:inline-block; width:22px; height:10px; border-radius:3px; margin-right:7px; vertical-align:middle}
+
+/* work areas */
+.areas{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+.area{background:var(--surface); border-radius:14px; padding:24px 20px 22px; border:1px solid var(--rule); position:relative; transition:transform .2s ease, box-shadow .2s ease; border-top:4px solid var(--c)}
+.area:hover{transform:translateY(-4px); box-shadow:var(--shadow)}
+.area .ico{margin-bottom:16px}
+.area .mono{display:block; color:var(--c); font-weight:600; margin-bottom:6px}
+.area h3{margin:0 0 8px; font-size:17.5px; font-weight:600; line-height:1.35}
+.area p{margin:0; color:var(--muted); font-size:14.5px}
+
+/* approach */
+.approach{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:16px; counter-reset:q}
+.approach li{grid-column:span 2; background:var(--surface); border-radius:14px; padding:26px 22px 24px; box-shadow:var(--shadow); counter-increment:q; position:relative; overflow:hidden}
+.approach li:nth-child(4), .approach li:nth-child(5){grid-column:span 3}
+.approach li::before{content:counter(q, decimal-leading-zero); display:block; font-family:var(--font-display); font-weight:700; font-size:54px; line-height:1; color:var(--pen); margin-bottom:12px}
+.approach li::after{content:""; position:absolute; right:-30px; top:-30px; width:110px; height:110px; border-radius:50%; border:1.5px solid color-mix(in srgb, var(--pen) 25%, transparent)}
+.approach h3{margin:0; font-family:var(--font-display); font-size:22px; font-weight:600; line-height:1.25; text-wrap:balance}
+.approach p{margin:8px 0 0; color:var(--muted); font-size:15px}
+.approach li:nth-child(2)::before{color:var(--c-teach)}
+.approach li:nth-child(3)::before{color:var(--c-course)}
+.approach li:nth-child(4)::before{color:var(--c-tech)}
+.approach li:nth-child(5)::before{color:var(--c-teach)}
+
+/* credentials */
+.creds{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+.creds li{background:var(--surface); border:1px solid var(--rule); border-left:4px solid var(--c); border-radius:10px; padding:16px 18px}
+.creds b{display:block; font-weight:600; line-height:1.35}
+.creds span{color:var(--muted); font-size:14px}
+
+/* contact */
+.contact{background:var(--cover); color:var(--cover-ink); border-radius:20px; padding:44px 40px; display:grid; grid-template-columns:1.1fr 1fr; gap:36px; align-items:center; position:relative; overflow:hidden}
+.contact::before{content:""; position:absolute; right:-80px; bottom:-120px; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle, rgba(255,213,74,.25), transparent 70%)}
+.contact h2{font-family:var(--font-display); font-weight:700; font-size:clamp(28px,3.4vw,36px); margin:0 0 10px; line-height:1.15; text-wrap:balance}
+.contact p{margin:0; opacity:.8}
+.cbox{display:grid; gap:12px; position:relative}
+.cline{display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14)}
+.cline .ico{--c:var(--hl); background:rgba(255,213,74,.15); flex:none; width:42px; height:42px}
+.cline .grow{flex:1; min-width:0}
+.cline .mono{opacity:.7; display:block; margin-bottom:2px; font-size:11px}
+.cline a{font-size:16px; font-weight:600; text-decoration:none; overflow-wrap:anywhere}
+.cline a:hover{text-decoration:underline}
+.copy{font:600 12px/1 var(--font-body); color:#14213D; background:var(--hl); border:0; padding:9px 11px; border-radius:6px; cursor:pointer; white-space:nowrap}
+
+.btn.cv{background:var(--pen); border-color:var(--pen); color:#fff; box-shadow:0 10px 24px -10px rgba(210,59,59,.8)}
+.btn.cv small{font:500 11px/1 var(--font-mono); opacity:.85; padding:3px 6px; border-radius:4px; background:rgba(255,255,255,.18)}
+.fab{position:fixed; right:20px; bottom:20px; z-index:50; display:inline-flex; align-items:center; gap:10px; text-decoration:none;
+  font:600 15px/1 var(--font-body); color:#fff; background:var(--pen); padding:15px 20px 15px 16px; border-radius:999px;
+  box-shadow:0 14px 30px -10px rgba(210,59,59,.75), 0 2px 6px rgba(0,0,0,.15); transition:transform .15s ease}
+.fab svg{width:20px; height:20px}
+.fab:hover{transform:translateY(-2px)}
+.fab .pulse{position:absolute; inset:0; border-radius:inherit; border:2px solid var(--pen); animation:pulse 2.4s ease-out infinite; pointer-events:none}
+@keyframes pulse{0%{opacity:.7; transform:scale(1)} 100%{opacity:0; transform:scale(1.25)}}
+.cvrow{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+.cvrow a{display:inline-flex; align-items:center; gap:8px; text-decoration:none; font:600 14px/1 var(--font-body); padding:12px 16px; border-radius:8px; background:var(--hl); color:#14213D}
+.cvrow a svg{width:18px; height:18px}
+.toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--ink); color:var(--paper); padding:12px 18px; border-radius:10px; font-size:14px; z-index:60; box-shadow:var(--shadow); max-width:calc(100% - 32px)}
+.toast[hidden]{display:none}
+@media (prefers-reduced-motion: reduce){ .fab .pulse{animation:none; display:none} .fab:hover{transform:none} }
+@media (max-width:520px){ .fab{right:14px; bottom:14px; padding:13px 16px 13px 14px; font-size:14px} }
+@media print{ .fab, .toast{display:none} }
+footer{padding:28px 0 90px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; color:var(--muted)}
+
+@media (prefers-reduced-motion: reduce){ .btn, .area{transition:none} .btn:hover, .area:hover{transform:none} }
+@media (max-width:900px){
+  .areas{grid-template-columns:repeat(2,1fr)}
+  .results{grid-template-columns:repeat(2,1fr)}
+  .creds{grid-template-columns:repeat(2,1fr)}
+  .approach{grid-template-columns:1fr 1fr}
+  .approach li, .approach li:nth-child(4), .approach li:nth-child(5){grid-column:span 1}
+  .approach li:nth-child(5){grid-column:1 / -1}
+}
+@media (max-width:720px){
+  .cover::before{left:14px}
+  .hero{grid-template-columns:1fr; padding:24px 0 110px; gap:48px}
+  .portrait{width:220px}
+  .stamp{width:104px; height:104px; right:-26px; top:-24px}
+  .roles{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr; padding:32px 22px}
+  section{padding:56px 0}
+}
+@media (max-width:520px){
+  .areas, .creds, .approach{grid-template-columns:1fr}
+  .approach li:nth-child(5){grid-column:auto}
+  .results{gap:10px}
+  .rcard{padding:16px 14px}
+  .score{font-size:38px}
+}
+</style>
+</head>
+<body data-lang="en">
+
+<!-- icon sprites -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M9 7h7M9 11h5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"/><path d="M14 6l3 3"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="m8 10 2 2 4-4"/></symbol>
+  <symbol id="i-school" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.2-4.4A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+</svg>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="topbar">
+      <span class="mono">
+        <span data-l="en">English teaching &amp; assessment</span>
+        <span data-l="vi">Giảng dạy &amp; khảo thí tiếng Anh</span>
+      </span>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="btn-en" data-set="en" aria-pressed="true">English</button>
+        <button type="button" id="btn-vi" data-set="vi" aria-pressed="false">Tiếng Việt</button>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">
+          <span data-l="en">Teacher</span><span data-l="vi">Giáo viên</span>
+          <span data-l="en">Examiner</span><span data-l="vi">Giám khảo</span>
+          <span data-l="en">Item writer</span><span data-l="vi">Người viết đề</span>
+          <span data-l="en">Curriculum designer</span><span data-l="vi">Xây dựng chương trình</span>
+        </div>
+        <h1>Phạm Anh Đức</h1>
+        <div class="aka">Nick Pham</div>
+
+        <p class="thesis" data-l="en">I teach English, assess it, and <span class="hl">write the tests.</span></p>
+        <p class="thesis" data-l="vi">Tôi dạy tiếng Anh, chấm thi và <span class="hl">viết đề thi.</span></p>
+
+        <p class="summary" data-l="en">An English teacher with eight years in the classroom, a certified examiner for Cambridge and VSTEP speaking and writing tests, and a certified VSTEP item writer. I design TOEIC and IELTS courses and build the learning platform my students use every day.</p>
+        <p class="summary" data-l="vi">Giáo viên tiếng Anh với 8 năm đứng lớp, giám khảo được cấp chứng chỉ chấm thi Nói – Viết VSTEP và chấm thi Nói Cambridge, đồng thời là cán bộ viết tiểu mục đề thi VSTEP. Tôi xây dựng chương trình luyện thi TOEIC, IELTS và tự phát triển hệ thống học tập trực tuyến mà học viên của mình sử dụng hằng ngày.</p>
+
+        <div class="cta">
+          <a class="btn cv cv-link" href="cv/Pham-Anh-Duc-CV-EN.pdf" data-cv="current" target="_blank" rel="noopener">
+            <svg><use href="#i-download"/></svg><span data-l="en">Download CV</span><span data-l="vi">Tải CV</span><small>PDF</small>
+          </a>
+          <a class="btn primary" href="#contact" id="cta-contact">
+            <svg><use href="#i-mail"/></svg><span data-l="en">Get in touch</span><span data-l="vi">Liên hệ</span>
+          </a>
+          <a class="btn" href="https://zalo.me/0962285135" target="_blank" rel="noopener"><svg><use href="#i-chat"/></svg>Zalo · 0962 285 135</a>
+        </div>
+      </div>
+
+      <div class="portrait" aria-hidden="true">
+        <div class="photo"><span>NP</span></div>
+        <div class="tag"><b>8</b><small data-l="en">years in the classroom</small><small data-l="vi">năm đứng lớp</small></div>
+        <div class="stamp">
+          <svg viewBox="0 0 140 140">
+            <defs><path id="ring" d="M70 70 m-52 0 a52 52 0 1 1 104 0 a52 52 0 1 1 -104 0"/></defs>
+            <circle cx="70" cy="70" r="66" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="70" cy="70" r="40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <text><textPath href="#ring">CERTIFIED EXAMINER · CAMBRIDGE · VSTEP ·</textPath></text>
+            <path d="m54 71 11 11 22-24" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="results" aria-label="Scores and degree">
+    <div class="rcard" style="--c:var(--c-assess)">
+      <span class="mono">IELTS</span>
+      <span class="score">8.0</span>
+      <span class="note" data-l="en">Overall band · British Council</span>
+      <span class="note" data-l="vi">Điểm tổng · British Council</span>
+    </div>
+    <div class="rcard" style="--c:var(--c-teach)">
+      <span class="mono">TOEIC</span>
+      <span class="score">990<small> /990</small></span>
+      <span class="note" data-l="en">Listening &amp; Reading · IIG Vietnam</span>
+      <span class="note" data-l="vi">Nghe &amp; Đọc · IIG Việt Nam</span>
+    </div>
+    <div class="rcard" style="--c:var(--c-course)">
+      <span class="mono">TKT</span>
+      <span class="score">4<small> /4</small></span>
+      <span class="note" data-l="en">Top band in 3 modules · Cambridge</span>
+      <span class="note" data-l="vi">Band cao nhất ở cả 3 module · Cambridge</span>
+    </div>
+    <div class="rcard ma" style="--c:var(--c-tech)">
+      <span class="mono">MA</span>
+      <span class="score">Applied Linguistics</span>
+      <span class="note">Curtin University, Australia</span>
+    </div>
+  </div>
+</div>
+
+<section id="roles">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2><span data-l="en">Current roles</span><span data-l="vi">Vai trò hiện tại</span></h2>
+    </div>
+    <div class="roles">
+      <div class="role feature" style="--c:var(--c-teach)">
+        <div class="ico"><svg><use href="#i-school"/></svg></div>
+        <div>
+          <span class="when" data-l="en">Current</span><span class="when" data-l="vi">Hiện tại</span>
+          <h3 data-l="en">Co-founder &amp; Academic Director, Duc Thinh Academy</h3>
+          <h3 data-l="vi">Đồng sáng lập &amp; Giám đốc Học thuật, Duc Thinh Academy</h3>
+          <p data-l="en">English centre in Đồng Nai. Leads curriculum for IELTS, TOEIC and foundation programmes, teaches, and develops the centre's learning platform.</p>
+          <p data-l="vi">Trung tâm Anh ngữ tại Đồng Nai. Phụ trách chương trình học IELTS, TOEIC và tiếng Anh nền tảng, trực tiếp giảng dạy và phát triển hệ thống học tập của trung tâm.</p>
+          <div class="chips"><span class="chip">IELTS</span><span class="chip">TOEIC</span><span class="chip" data-l="en">Foundation English</span><span class="chip" data-l="vi">Tiếng Anh nền tảng</span><span class="chip">LMS</span></div>
+        </div>
+      </div>
+      <div class="role" style="--c:var(--c-teach)">
+        <div class="ico"><svg><use href="#i-mic"/></svg></div>
+        <div>
+          <span class="when" data-l="en">Since 2023</span><span class="when" data-l="vi">Từ 2023</span>
+          <h3 data-l="en">Cambridge Speaking Examiner</h3>
+          <h3 data-l="vi">Giám khảo chấm thi Nói Cambridge</h3>
+          <div class="chips"><span class="chip">Starters</span><span class="chip">Movers</span><span class="chip">Flyers</span><span class="chip">KET</span><span class="chip">PET</span></div>
+        </div>
+      </div>
+      <div class="role" style="--c:var(--c-assess)">
+        <div class="ico"><svg><use href="#i-check"/></svg></div>
+        <div>
+          <span class="when" data-l="en">Since 2023</span><span class="when" data-l="vi">Từ 2023</span>
+          <h3 data-l="en">VSTEP Speaking &amp; Writing Examiner</h3>
+          <h3 data-l="vi">Cán bộ chấm thi Nói – Viết VSTEP</h3>
+          <div class="chips"><span class="chip" data-l="en">Levels 3–5</span><span class="chip" data-l="vi">Bậc 3–5</span><span class="chip">B1–C1</span></div>
+        </div>
+      </div>
+      <div class="role" style="--c:var(--c-assess)">
+        <div class="ico"><svg><use href="#i-pen"/></svg></div>
+        <div>
+          <span class="when" data-l="en">Certified</span><span class="when" data-l="vi">Có chứng chỉ</span>
+          <h3 data-l="en">VSTEP Item Writer</h3>
+          <h3 data-l="vi">Cán bộ viết tiểu mục đề thi VSTEP</h3>
+          <div class="chips"><span class="chip" data-l="en">Levels 3–5</span><span class="chip" data-l="vi">Bậc 3–5</span><span class="chip">B1–C1</span></div>
+        </div>
+      </div>
+      <div class="role" style="--c:var(--c-course)">
+        <div class="ico"><svg><use href="#i-layers"/></svg></div>
+        <div>
+          <span class="when" data-l="en">Ongoing</span><span class="when" data-l="vi">Thường xuyên</span>
+          <h3 data-l="en">Curriculum &amp; materials developer</h3>
+          <h3 data-l="vi">Xây dựng chương trình &amp; học liệu</h3>
+          <div class="chips"><span class="chip" data-l="en">TOEIC prep</span><span class="chip" data-l="vi">Luyện thi TOEIC</span><span class="chip" data-l="en">IELTS prep</span><span class="chip" data-l="vi">Luyện thi IELTS</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="levels" class="tinted">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2><span data-l="en">Assessment range on the CEFR</span><span data-l="vi">Phạm vi khảo thí theo khung CEFR</span></h2>
+      <p data-l="en">From young learners to advanced adults: the levels I examine and write tests for.</p>
+      <p data-l="vi">Từ thiếu nhi đến người lớn trình độ cao: những cấp độ tôi chấm thi và viết đề.</p>
+    </div>
+    <div class="ladder-card">
+      <div class="ladder-scroll">
+        <div class="ladder" role="table" aria-label="CEFR coverage">
+          <div role="columnheader"></div>
+          <div class="lvl" role="columnheader">Pre-A1</div>
+          <div class="lvl" role="columnheader">A1</div>
+          <div class="lvl" role="columnheader">A2</div>
+          <div class="lvl" role="columnheader">B1</div>
+          <div class="lvl" role="columnheader">B2</div>
+          <div class="lvl" role="columnheader">C1</div>
+          <div class="lvl" role="columnheader">C2</div>
+
+          <div class="rowlabel" role="rowheader">
+            <span data-l="en">Cambridge examiner</span><span data-l="vi">Giám khảo Cambridge</span>
+            <small data-l="en">Speaking</small><small data-l="vi">Kỹ năng Nói</small>
+          </div>
+          <div class="bar a" style="grid-column:2 / span 4; grid-template-columns:repeat(4,1fr)">
+            <span>Starters</span><span>Movers</span><span>Flyers<br>KET</span><span>PET</span>
+          </div>
+
+          <div class="rowlabel" role="rowheader">
+            <span data-l="en">VSTEP examiner</span><span data-l="vi">Giám khảo VSTEP</span>
+            <small data-l="en">Speaking &amp; Writing</small><small data-l="vi">Nói &amp; Viết</small>
+          </div>
+          <div class="bar b" style="grid-column:5 / span 3; grid-template-columns:repeat(3,1fr)">
+            <span data-l="en">Level 3</span><span data-l="en">Level 4</span><span data-l="en">Level 5</span>
+            <span data-l="vi">Bậc 3</span><span data-l="vi">Bậc 4</span><span data-l="vi">Bậc 5</span>
+          </div>
+
+          <div class="rowlabel" role="rowheader">
+            <span data-l="en">VSTEP item writer</span><span data-l="vi">Viết đề VSTEP</span>
+            <small data-l="en">Test items</small><small data-l="vi">Tiểu mục đề thi</small>
+          </div>
+          <div class="bar c" style="grid-column:5 / span 3; grid-template-columns:repeat(3,1fr)">
+            <span data-l="en">Level 3</span><span data-l="en">Level 4</span><span data-l="en">Level 5</span>
+            <span data-l="vi">Bậc 3</span><span data-l="vi">Bậc 4</span><span data-l="vi">Bậc 5</span>
+          </div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--c-teach)"></i><span data-l="en">Rating candidates · Cambridge</span><span data-l="vi">Chấm bài thí sinh · Cambridge</span></span>
+        <span><i style="background:var(--c-assess)"></i><span data-l="en">Rating candidates · VSTEP</span><span data-l="vi">Chấm bài thí sinh · VSTEP</span></span>
+        <span><i style="border:1.5px dashed var(--c-assess)"></i><span data-l="en">Writing the test items</span><span data-l="vi">Trực tiếp viết tiểu mục đề thi</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2><span data-l="en">What I do</span><span data-l="vi">Lĩnh vực công việc</span></h2>
+    </div>
+    <div class="areas">
+      <div class="area" style="--c:var(--c-teach)">
+        <div class="ico"><svg><use href="#i-book"/></svg></div>
+        <span class="mono"><span data-l="en">Teaching</span><span data-l="vi">Giảng dạy</span></span>
+        <h3 data-l="en">English from foundation to advanced</h3>
+        <h3 data-l="vi">Tiếng Anh từ cơ bản đến nâng cao</h3>
+        <p data-l="en">General English and IELTS/TOEIC preparation, in class, online and in hybrid classes that run in the room and on Google Meet at once.</p>
+        <p data-l="vi">Tiếng Anh tổng quát và luyện thi IELTS, TOEIC, dạy trực tiếp, trực tuyến và theo mô hình hybrid (tại lớp và trên Google Meet cùng lúc).</p>
+      </div>
+      <div class="area" style="--c:var(--c-assess)">
+        <div class="ico"><svg><use href="#i-check"/></svg></div>
+        <span class="mono"><span data-l="en">Assessment</span><span data-l="vi">Khảo thí</span></span>
+        <h3 data-l="en">Examining and item writing</h3>
+        <h3 data-l="vi">Chấm thi và viết đề</h3>
+        <p data-l="en">Rating speaking and writing in standardised tests (VSTEP levels 3–5, Cambridge Starters to PET) and writing VSTEP test items.</p>
+        <p data-l="vi">Chấm thi Nói và Viết các kỳ thi chuẩn hoá (VSTEP bậc 3–5, Cambridge từ Starters đến PET) và viết tiểu mục đề thi VSTEP.</p>
+      </div>
+      <div class="area" style="--c:var(--c-course)">
+        <div class="ico"><svg><use href="#i-layers"/></svg></div>
+        <span class="mono"><span data-l="en">Curriculum</span><span data-l="vi">Chương trình</span></span>
+        <h3 data-l="en">Course and coursebook design</h3>
+        <h3 data-l="vi">Xây dựng chương trình và giáo trình</h3>
+        <p data-l="en">Building syllabuses and learning materials for TOEIC and IELTS preparation courses, from foundation level up.</p>
+        <p data-l="vi">Xây dựng chương trình học và giáo trình cho các khoá luyện thi TOEIC, IELTS, từ trình độ nền tảng trở lên.</p>
+      </div>
+      <div class="area" style="--c:var(--c-tech)">
+        <div class="ico"><svg><use href="#i-screen"/></svg></div>
+        <span class="mono"><span data-l="en">EdTech</span><span data-l="vi">Công nghệ giáo dục</span></span>
+        <h3 data-l="en">Learning management system</h3>
+        <h3 data-l="vi">Hệ thống quản lý học tập (LMS)</h3>
+        <p data-l="en">Built an LMS where students follow their class schedule and complete assigned tasks at home, with an online test builder for practice exams.</p>
+        <p data-l="vi">Tự xây dựng LMS cho phép học viên theo dõi lịch học và làm nhiệm vụ học tập được giao tại nhà, kèm công cụ tạo đề luyện thi trực tuyến.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="approach" class="tinted">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2><span data-l="en">How I teach</span><span data-l="vi">Phong cách giảng dạy</span></h2>
+    </div>
+    <ol class="approach">
+      <li>
+        <h3 data-l="en">Teach what actually blocks learners</h3>
+        <h3 data-l="vi">Dạy đúng chỗ học viên bị vướng</h3>
+        <p data-l="en">Lessons target the real sources of error, such as the meaning of question wording that recurs across exams. That test language is taught step by step over the whole course.</p>
+        <p data-l="vi">Bài giảng nhắm vào nguyên nhân thật sự khiến học viên sai, chẳng hạn nghĩa của những cách hỏi lặp lại trong đề thi. Ngôn ngữ đề thi được dạy dần qua suốt khoá học.</p>
+      </li>
+      <li>
+        <h3 data-l="en">Practise in the real exam format</h3>
+        <h3 data-l="vi">Luyện tập đúng định dạng đề thật</h3>
+        <p data-l="en">Practice tasks mirror authentic test formats. Tests meant to be used interchangeably are written as parallel forms of equal difficulty.</p>
+        <p data-l="vi">Bài luyện tập mô phỏng đúng định dạng đề thi thật. Các đề dùng thay thế cho nhau được biên soạn thành đề song song có độ khó tương đương.</p>
+      </li>
+      <li>
+        <h3 data-l="en">Original materials</h3>
+        <h3 data-l="vi">Học liệu tự biên soạn</h3>
+        <p data-l="en">Reading and listening texts are written fresh for each course instead of being adapted from published coursebooks.</p>
+        <p data-l="vi">Bài đọc, bài nghe được viết mới cho từng khoá học thay vì chỉnh sửa từ giáo trình đã xuất bản.</p>
+      </li>
+      <li>
+        <h3 data-l="en">Accuracy, explained in the learner's language</h3>
+        <h3 data-l="vi">Chính xác, giải thích dễ hiểu</h3>
+        <p data-l="en">Close attention to grammatical accuracy, with Vietnamese explanations wherever they help students understand faster.</p>
+        <p data-l="vi">Chú trọng độ chính xác ngữ pháp, giải thích bằng tiếng Việt ở những chỗ giúp học viên hiểu nhanh hơn.</p>
+      </li>
+      <li>
+        <h3 data-l="en">Technology that serves the lesson</h3>
+        <h3 data-l="vi">Công nghệ phục vụ bài học</h3>
+        <p data-l="en">Students keep learning between classes through the LMS, and hybrid lessons let online and in-room students work in the same class.</p>
+        <p data-l="vi">Học viên tiếp tục học giữa các buổi qua hệ thống LMS, và lớp hybrid giúp học viên online và tại lớp học chung một buổi.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2><span data-l="en">Qualifications &amp; certificates</span><span data-l="vi">Bằng cấp &amp; chứng chỉ</span></h2>
+    </div>
+    <ul class="creds">
+      <li style="--c:var(--c-tech)">
+        <b data-l="en">MA in Applied Linguistics</b><b data-l="vi">Thạc sĩ Ngôn ngữ học Ứng dụng</b>
+        <span>Curtin University, Australia · 2023</span>
+      </li>
+      <li style="--c:var(--c-assess)">
+        <b>IELTS 8.0</b>
+        <span>British Council Vietnam</span>
+      </li>
+      <li style="--c:var(--c-teach)">
+        <b>TOEIC 990</b>
+        <span>IIG Vietnam</span>
+      </li>
+      <li style="--c:var(--c-course)">
+        <b data-l="en">TKT: Band 4/4, 3 modules</b>
+        <b data-l="vi">TKT: Band 4/4, 3 module</b>
+        <span>Teaching Knowledge Test · British Council</span>
+      </li>
+      <li style="--c:var(--c-assess)">
+        <b data-l="en">VSTEP Speaking &amp; Writing Examiner Certificate</b>
+        <b data-l="vi">Chứng chỉ cán bộ chấm thi Nói – Viết VSTEP</b>
+        <span data-l="en">Levels 3–5</span><span data-l="vi">Bậc 3–5</span>
+      </li>
+      <li style="--c:var(--c-assess)">
+        <b data-l="en">VSTEP Item Writer Certificate</b>
+        <b data-l="vi">Chứng chỉ cán bộ viết tiểu mục đề thi VSTEP</b>
+        <span data-l="en">Levels 3–5</span><span data-l="vi">Bậc 3–5</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="contact" id="contact">
+    <div style="position:relative">
+      <span class="sec-num">06</span>
+      <h2 style="margin-top:14px" data-l="en">Let's talk about your team's next course or test.</h2>
+      <h2 style="margin-top:14px" data-l="vi">Sẵn sàng trao đổi về khoá học hoặc bộ đề tiếp theo của bạn.</h2>
+      <p data-l="en">Reach me by Zalo, phone or email.</p>
+      <p data-l="vi">Liên hệ qua Zalo, điện thoại hoặc email.</p>
+      <div class="cvrow">
+        <a class="cv-link" href="cv/Pham-Anh-Duc-CV-EN.pdf" data-cv="en" target="_blank" rel="noopener"><svg><use href="#i-download"/></svg>CV · English (PDF)</a>
+        <a class="cv-link" href="cv/Pham-Anh-Duc-CV-VI.pdf" data-cv="vi" target="_blank" rel="noopener"><svg><use href="#i-download"/></svg>CV · Tiếng Việt (PDF)</a>
+      </div>
+    </div>
+    <div class="cbox">
+      <div class="cline">
+        <div class="ico"><svg><use href="#i-phone"/></svg></div>
+        <div class="grow">
+          <span class="mono"><span data-l="en">Zalo / Phone</span><span data-l="vi">Zalo / Điện thoại</span></span>
+          <a href="https://zalo.me/0962285135" target="_blank" rel="noopener">0962 285 135</a>
+        </div>
+        <button type="button" class="copy" id="copy-phone" data-copy="0962285135"><span data-l="en">Copy</span><span data-l="vi">Sao chép</span></button>
+      </div>
+      <div class="cline">
+        <div class="ico"><svg><use href="#i-mail"/></svg></div>
+        <div class="grow">
+          <span class="mono">Email</span>
+          <a href="mailto:anhducpham.ftu2@gmail.com">anhducpham.ftu2@gmail.com</a>
+        </div>
+        <button type="button" class="copy" id="copy-email" data-copy="anhducpham.ftu2@gmail.com"><span data-l="en">Copy</span><span data-l="vi">Sao chép</span></button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="mono">Phạm Anh Đức · Nick Pham</span>
+    <span class="mono">Đồng Nai, Việt Nam</span>
+  </footer>
+</div>
+
+<a class="fab cv-link" href="cv/Pham-Anh-Duc-CV-EN.pdf" data-cv="current" target="_blank" rel="noopener" aria-label="Download CV as PDF">
+  <span class="pulse" aria-hidden="true"></span>
+  <svg><use href="#i-download"/></svg><span data-l="en">Download CV (PDF)</span><span data-l="vi">Tải CV (PDF)</span>
+</a>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+  var body = document.body;
+  function cvFile(l){ return 'cv/Pham-Anh-Duc-CV-' + (l === 'vi' ? 'VI' : 'EN') + '.pdf'; }
+  function setLang(l, push){
+    if(l !== 'en' && l !== 'vi') l = 'en';
+    body.setAttribute('data-lang', l);
+    document.documentElement.lang = l;
+    document.getElementById('btn-en').setAttribute('aria-pressed', l === 'en');
+    document.getElementById('btn-vi').setAttribute('aria-pressed', l === 'vi');
+    document.querySelectorAll('[data-cv="current"]').forEach(function(a){ a.setAttribute('href', cvFile(l)); });
+    if(push && location.hash !== '#' + l){
+      try{ history.replaceState(null, '', '#' + l); }catch(e){ location.hash = l; }
+    }
+  }
+  function fromHash(){
+    var h = (location.hash || '').replace('#','');
+    if(h === 'en' || h === 'vi') setLang(h, false);
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-set'), true); });
+  });
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+
+  document.getElementById('cta-contact').addEventListener('click', function(e){
+    e.preventDefault();
+    document.getElementById('contact').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+  });
+
+  var downloads = null;
+  try{
+    if(window.claude && typeof window.claude.use === 'function'){
+      window.claude.use('downloads').then(function(d){ downloads = d; }, function(){ downloads = null; });
+    }
+  }catch(e){}
+  var toast = document.getElementById('toast'), toastTimer;
+  function say(en, vi){
+    toast.textContent = body.getAttribute('data-lang') === 'vi' ? vi : en;
+    toast.hidden = false; clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.hidden = true; }, 3200);
+  }
+  document.querySelectorAll('.cv-link').forEach(function(a){
+    a.addEventListener('click', function(e){
+      if(!downloads) return; // no save capability here: the link opens the PDF in a new tab
+      e.preventDefault();
+      var which = a.getAttribute('data-cv');
+      var lang = which === 'current' ? body.getAttribute('data-lang') : which;
+      var href = cvFile(lang);
+      fetch(href).then(function(r){ if(!r.ok) throw new Error('fetch'); return r.blob(); })
+        .then(function(blob){ return downloads.save({filename: href.split('/').pop(), data: blob}); })
+        .then(function(){ say('CV saved.', 'Đã tải CV.'); })
+        .catch(function(err){
+          if(err && err.code === 'declined') return;
+          if(err && err.code === 'rate_limited'){ say('A download prompt is already open.', 'Hộp thoại tải xuống đang mở.'); return; }
+          window.open(href, '_blank', 'noopener');
+          say('Opening the PDF in a new tab.', 'Đang mở PDF ở thẻ mới.');
+        });
+    });
+  });
+
+  document.querySelectorAll('.copy').forEach(function(btn){
+    var original = btn.innerHTML;
+    btn.addEventListener('click', function(){
+      var text = btn.getAttribute('data-copy');
+      var done = function(ok){
+        var vi = body.getAttribute('data-lang') === 'vi';
+        btn.textContent = ok ? (vi ? 'Đã chép' : 'Copied') : text;
+        setTimeout(function(){ btn.innerHTML = original; }, 1800);
+      };
+      try{ navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); }); }
+      catch(e){ done(false); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
