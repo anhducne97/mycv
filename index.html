@@ -71,7 +71,7 @@ a{color:inherit}
 .lang button{font:500 13px/1 var(--font-body); color:var(--cover-ink); opacity:.75; background:transparent; border:0; padding:8px 14px; border-radius:999px; cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--hl); color:#14213D; opacity:1}
 
-.hero{display:grid; grid-template-columns:1.35fr .9fr; gap:40px; align-items:center; padding:40px 0 120px; position:relative}
+.hero{display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center; padding:40px 0 120px; position:relative}
 .eyebrow{display:inline-flex; flex-wrap:wrap; gap:8px}
 .eyebrow span{font-family:var(--font-mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; padding:6px 10px; border:1px solid rgba(255,255,255,.22); border-radius:4px; background:rgba(255,255,255,.05)}
 .hero h1{font-family:var(--font-display); font-weight:700; font-size:clamp(44px,7.4vw,80px); line-height:.98; margin:22px 0 6px; letter-spacing:-.015em}
@@ -86,21 +86,14 @@ a{color:inherit}
 .btn:hover{transform:translateY(-2px)}
 .btn:not(.primary):hover{background:rgba(255,255,255,.08)}
 
-/* portrait card + stamp */
-.portrait{justify-self:center; position:relative; width:min(300px,100%)}
-.photo{
-  aspect-ratio:4/5; border-radius:14px; background:linear-gradient(160deg,#2B4B85,#1A2C52);
-  border:6px solid #fff; box-shadow:0 30px 60px -20px rgba(0,0,0,.55); transform:rotate(-2.5deg);
-  display:grid; place-items:center; position:relative; overflow:hidden;
-}
-.photo span{font-family:var(--font-display); font-weight:700; font-size:96px; color:rgba(255,255,255,.92); letter-spacing:.02em}
-.photo::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(180deg, transparent 0 23px, rgba(255,255,255,.07) 23px 24px)}
-.tag{position:absolute; left:-18px; bottom:28px; background:#fff; color:#14213D; padding:10px 14px; border-radius:8px; box-shadow:var(--shadow); transform:rotate(2deg); display:flex; align-items:center; gap:10px}
-.tag b{font-family:var(--font-display); font-size:30px; line-height:1}
-.tag small{font-size:12px; line-height:1.25; color:#5A6477; max-width:12ch}
-.stamp{position:absolute; right:-34px; top:-30px; width:132px; height:132px; transform:rotate(14deg); color:var(--pen)}
+/* stamp + years */
+.portrait{justify-self:end; display:flex; flex-direction:column; align-items:center; gap:18px; padding-right:12px}
+.stamp{width:200px; height:200px; transform:rotate(-12deg); color:#FF6B5E}
 .stamp svg{width:100%; height:100%}
 .stamp text{font-family:var(--font-mono); font-weight:600; font-size:10.4px; letter-spacing:2.2px; fill:currentColor}
+.years{display:flex; align-items:center; gap:12px; background:#fff; color:#14213D; padding:12px 18px; border-radius:10px; box-shadow:0 20px 40px -18px rgba(0,0,0,.6); transform:rotate(2deg)}
+.years b{font-family:var(--font-display); font-size:40px; line-height:1}
+.years span{font-size:13px; line-height:1.3; color:#5A6477; max-width:11ch}
 
 /* ---------- result cards ---------- */
 .results{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:-72px; position:relative; z-index:2}
@@ -229,8 +222,8 @@ footer{padding:28px 0 90px; display:flex; justify-content:space-between; gap:12p
 @media (max-width:720px){
   .cover::before{left:14px}
   .hero{grid-template-columns:1fr; padding:24px 0 110px; gap:48px}
-  .portrait{width:220px}
-  .stamp{width:104px; height:104px; right:-26px; top:-24px}
+  .portrait{flex-direction:row; justify-self:start; padding-right:0}
+  .stamp{width:110px; height:110px}
   .roles{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr; padding:32px 22px}
   section{padding:56px 0}
@@ -302,11 +295,9 @@ footer{padding:28px 0 90px; display:flex; justify-content:space-between; gap:12p
         </div>
       </div>
 
-      <div class="portrait" aria-hidden="true">
-        <div class="photo"><span>NP</span></div>
-        <div class="tag"><b>8</b><small data-l="en">years in the classroom</small><small data-l="vi">năm đứng lớp</small></div>
-        <div class="stamp">
-          <svg viewBox="0 0 140 140">
+      <div class="portrait">
+        <div class="stamp" aria-label="Certified examiner: Cambridge, VSTEP">
+          <svg viewBox="0 0 140 140" aria-hidden="true">
             <defs><path id="ring" d="M70 70 m-52 0 a52 52 0 1 1 104 0 a52 52 0 1 1 -104 0"/></defs>
             <circle cx="70" cy="70" r="66" fill="none" stroke="currentColor" stroke-width="3"/>
             <circle cx="70" cy="70" r="40" fill="none" stroke="currentColor" stroke-width="1.5"/>
@@ -314,6 +305,7 @@ footer{padding:28px 0 90px; display:flex; justify-content:space-between; gap:12p
             <path d="m54 71 11 11 22-24" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
+        <div class="years"><b>8</b><span data-l="en">years in the classroom</span><span data-l="vi">năm đứng lớp</span></div>
       </div>
     </div>
   </div>
